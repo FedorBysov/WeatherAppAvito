@@ -35,12 +35,14 @@ class MainActivity : AppCompatActivity() {
 //            repository.loadDataUseCase("Moscow")
 //        }
 
-        val live = getWeatherNowUseCase()
-        live.observe(this) {
-            if (it != null) {
-                Log.d("321Z", "$it")
-            }
-        }
+//        val live = getWeatherNowUseCase()
+//        live.observe(this) {
+//            if (it != null) {
+//                Log.d("321Z", "$it")
+//            }
+//        }
+
+
 
 
 
