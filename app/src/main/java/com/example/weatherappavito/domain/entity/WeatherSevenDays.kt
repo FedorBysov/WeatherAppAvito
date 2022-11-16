@@ -9,6 +9,7 @@ data class WeatherSevenDays(
     val temp: Double?,
     val feelslike: Double?,
     val humidity: Double?,
+    val icon: Int,
     val windspeed: Double?
 
     )

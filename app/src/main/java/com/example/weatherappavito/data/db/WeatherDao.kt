@@ -11,13 +11,13 @@ import com.example.weatherappavito.data.db.model.WeatherSevenDb
 @Dao
 interface WeatherDao {
 
-    @Query("SELECT * FROM weather_hour_day_table ORDER BY datetimeEpoch DESC ")
+    @Query("SELECT * FROM weather_hour_day_table ORDER BY datetimeEpoch ASC ")
     fun getWeatherHourTable(): LiveData<List<WeatherHourDb>>
 
-    @Query("SELECT * FROM weather_now_day_table ORDER BY datetimeEpoch DESC")
+    @Query("SELECT * FROM weather_now_day_table ORDER BY datetimeEpoch ASC")
     fun getWeatherNowTable(): LiveData<WeatherNowDb>
 
-    @Query("SELECT * FROM weather_days_week_table ORDER BY datetimeEpoch DESC")
+    @Query("SELECT * FROM weather_days_week_table ORDER BY datetimeEpoch ASC")
     fun getWeatherWeekTable(): LiveData<List<WeatherSevenDb>>
 
 

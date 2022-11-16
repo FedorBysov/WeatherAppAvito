@@ -10,7 +10,7 @@ import com.example.weatherappavito.data.db.model.WeatherSevenDb
 
 @Database(
     entities = [WeatherHourDb::class, WeatherNowDb::class, WeatherSevenDb::class],
-    version = 1,
+    version =2 ,
     exportSchema = false
 )
 abstract class DataBase : RoomDatabase() {
@@ -23,6 +23,7 @@ abstract class DataBase : RoomDatabase() {
             synchronized(LOCK) {
                 db?.let { return it }
                 val instance = Room.databaseBuilder(context, DataBase::class.java, DB_NAME)
+                    .fallbackToDestructiveMigration()
                     .build()
                 db = instance
                 return instance

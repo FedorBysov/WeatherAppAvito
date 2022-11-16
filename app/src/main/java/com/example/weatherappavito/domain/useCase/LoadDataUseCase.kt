@@ -4,5 +4,5 @@ import com.example.weatherappavito.domain.WeatherRepository
 
 class LoadDataUseCase(private val repository: WeatherRepository) {
 
-    suspend operator fun invoke(location:String) = repository
+    suspend operator fun invoke(location:String) = repository.loadDataUseCase(location)
 }

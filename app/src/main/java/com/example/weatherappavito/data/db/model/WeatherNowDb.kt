@@ -32,5 +32,8 @@ data class WeatherNowDb(
     val sunset: String?,
     val sunsetEpoch: Int?,
 
-    val address:String?
+    val address:String?,
+
+
+
 )
