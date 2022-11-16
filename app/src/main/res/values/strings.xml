@@ -4,4 +4,9 @@
     <string name="today">Today</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="CD_search_city">Search city</string>
+    <string name="CD_button_definition_geo_position">Button definition geo-position</string>
+    <string name="search">Search</string>
+    <string name="tv_conditions">conditions</string>
+    <string name="et_hint_city">City:</string>
 </resources>

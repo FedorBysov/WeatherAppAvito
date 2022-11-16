@@ -23,10 +23,18 @@
             android:orientation="vertical">
 
 
-<!--            <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--                android:id="@+id/fbSearchCity"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fbSearchCity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
+                android:contentDescription="@string/CD_search_city"
+                android:src="@drawable/search_icon"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/fbLocationDetermination"
+                android:layout_marginEnd="32dp"
+                android:layout_marginTop="16dp"/>
 
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -36,7 +44,7 @@
                 android:layout_margin="32dp"
                 android:clickable="true"
                 android:focusable="true"
-                android:contentDescription="Button definition geo-position"
+                android:contentDescription="@string/CD_button_definition_geo_position"
                 android:src="@drawable/map_icon"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -121,7 +129,7 @@
 
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/tvTempNow"
-                        android:text="conditions" />
+                        android:text="@string/tv_conditions" />
 
                     <TextView
                         android:id="@+id/tvMaxTemp"
@@ -164,7 +172,7 @@
                 android:layout_marginStart="40dp"
                 android:layout_marginTop="30dp"
                 android:layout_marginEnd="40dp"
-                app:cardBackgroundColor="#288AC1"
+                app:cardBackgroundColor="@color/card_background"
                 app:cardCornerRadius="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -292,7 +300,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="40dp"
 
-                app:cardBackgroundColor="#288AC1"
+                app:cardBackgroundColor="@color/card_background"
                 app:cardCornerRadius="20dp"
 
                 app:layout_constraintEnd_toEndOf="parent"
@@ -370,7 +378,7 @@
                 android:layout_marginEnd="40dp"
                 android:layout_marginBottom="16dp"
 
-                app:cardBackgroundColor="#288AC1"
+                app:cardBackgroundColor="@color/card_background"
                 app:cardCornerRadius="20dp"
 
                 app:layout_constraintBottom_toBottomOf="parent"

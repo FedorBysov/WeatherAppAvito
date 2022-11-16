@@ -10,7 +10,7 @@ import com.example.weatherappavito.domain.useCase.GetWeatherTodayUseCase
 import com.example.weatherappavito.domain.useCase.LoadDataUseCase
 import kotlinx.coroutines.launch
 
-class WeatherViewModel(application: Application):AndroidViewModel(application) {
+class WeatherViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository = WeatherRepositoryIMPL(application)
     private val getWeatherNowUseCase = GetWeatherNowUseCase(repository)
@@ -22,10 +22,13 @@ class WeatherViewModel(application: Application):AndroidViewModel(application) {
     val weatherWeekVM = getWeatherSevenDaysUseCase()
     val weatherHourVM = getWeatherTodayUseCase()
 
-    init {
-        viewModelScope.launch {
-            loadDataUseCase("Saint-Petersburg")
+//    init {
+
+     fun loadData(string: String) {
+        viewModelScope.launch(){
+            loadDataUseCase(string)
         }
     }
+//    }
 
 }
