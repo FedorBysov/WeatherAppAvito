@@ -2,6 +2,7 @@ package com.example.weatherappavito.data
 
 import android.app.Application
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.Transformations
 import com.example.weatherappavito.data.api.ApiFactory
 import com.example.weatherappavito.data.db.DataBase
@@ -36,13 +37,18 @@ class WeatherRepositoryIMPL(application: Application) : WeatherRepository {
         }
     }
 
-    override fun getWeatherNowUseCase(): LiveData<WeatherNow> {
-         return Transformations.map(weatherDAO.getWeatherNowTable()) {
-
-                return@map mapper.mapWeatherNowDbToEntity(it)
-
-         }
-    }
+    override fun getWeatherNowUseCase(): LiveData<WeatherNow> =
+        MediatorLiveData<WeatherNow>().apply {
+            addSource(weatherDAO.getWeatherNowTable()) {
+                if (it != null) {
+                    value = mapper.mapWeatherNowDbToEntity(it)
+                }
+            }
+//        }
+//        return Transformations.map(weatherDAO.getWeatherNowTable()) {
+//            return@map mapper.mapWeatherNowDbToEntity(it)
+//        }
+        }
 
     override suspend fun loadDataUseCase(location: String) {
         while (true) {
@@ -51,20 +57,30 @@ class WeatherRepositoryIMPL(application: Application) : WeatherRepository {
                 val weatherHourDto = apiService.getWeatherInfoHour(location)
                 val weatherNowDto = apiService.getWeatherInfoNow(location)
 
+                weatherDAO.deleteWeatherNowTable()
+                weatherDAO.deleteWeatherDaysWeekTable()
+                weatherDAO.deleteWeatherHourTable()
+
 
                 val dbModelSevenList =
                     weatherSevenDto.days?.map { mapper.mapWeatherInfoSevenDaysDtoToDb(it) }
                 weatherDAO.insertWeatherSevenDayTable(dbModelSevenList)
+
+
                 val dbModelHourList =
                     weatherHourDto.days?.get(0)?.hours?.map { mapper.mapWeatherInfoHourDtoToDb(it) }
+
+
                 weatherDAO.insertWeatherHourTable(dbModelHourList)
                 val dbModelNow =
                     mapper.mapWeatherInfoNowDtoToDb(weatherNowDto, weatherNowDto.currentConditions)
+//                        weatherSevenDto.days?.get(0)?.tempmin ?: 0.0,
+//                            weatherSevenDto.days?.get(0)?.tempmax ?: 0.0)
                 weatherDAO.insertWeatherNowTable(dbModelNow)
 
             } catch (e: Exception) {
             }
-            delay(3600000)
+            delay(100000000)
         }
     }
 }

@@ -26,6 +26,9 @@ data class WeatherSevenDaysDto(
     @SerializedName("humidity")
     @Expose
     val humidity: Double?,
+    @SerializedName("icon")
+    @Expose
+    val icon: String?,
     @SerializedName("windspeed")
     @Expose
     val windspeed: Double?

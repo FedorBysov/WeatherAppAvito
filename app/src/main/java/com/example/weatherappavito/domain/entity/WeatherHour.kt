@@ -7,7 +7,7 @@ data class WeatherHour(
     val datetimeEpoch: Int?,
     val temp: Double?,
     val humidity: Double?,
-    val icon: String?
+    val icon: Int
 )
 
 // Время

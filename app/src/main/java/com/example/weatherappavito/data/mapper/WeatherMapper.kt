@@ -1,6 +1,7 @@
 package com.example.weatherappavito.data.mapper
 
-import androidx.room.PrimaryKey
+import android.icu.text.DateFormat.DAY
+import com.example.weatherappavito.R
 import com.example.weatherappavito.data.api.model.weatherHourResponse.WeatherHourDto
 import com.example.weatherappavito.data.api.model.weatherNowResponse.WeatherInfoNowDto
 import com.example.weatherappavito.data.api.model.weatherNowResponse.WeatherNowDto
@@ -11,6 +12,10 @@ import com.example.weatherappavito.data.db.model.WeatherSevenDb
 import com.example.weatherappavito.domain.entity.WeatherHour
 import com.example.weatherappavito.domain.entity.WeatherNow
 import com.example.weatherappavito.domain.entity.WeatherSevenDays
+import java.sql.Date
+import java.sql.Timestamp
+import java.text.SimpleDateFormat
+import java.util.*
 
 class WeatherMapper {
 
@@ -46,7 +51,9 @@ class WeatherMapper {
             sunset = nowDto.sunset,
             sunsetEpoch = nowDto.sunsetEpoch,
 
-            address = infoNowDto.address
+            address = infoNowDto.address,
+
+
         )
     }
 
@@ -70,18 +77,19 @@ class WeatherMapper {
             temp = weatherSevenDaysDto.temp,
             feelslike = weatherSevenDaysDto.feelslike,
             humidity = weatherSevenDaysDto.humidity,
-            windspeed = weatherSevenDaysDto.windspeed
+            windspeed = weatherSevenDaysDto.windspeed,
+            icon = weatherSevenDaysDto.icon
         )
     }
 
 
     fun mapWeatherHourDbToEntity(hourDb: WeatherHourDb): WeatherHour {
         return WeatherHour(
-            datetime = hourDb.datetime,
+            datetime = convertTimeTempToSet(hourDb.datetimeEpoch?.toLong()),
             datetimeEpoch = hourDb.datetimeEpoch,
             temp = hourDb.temp,
             humidity = hourDb.humidity,
-            icon = hourDb.icon
+            icon = selectedImage(hourDb.icon)
         )
     }
 
@@ -106,28 +114,100 @@ class WeatherMapper {
             solarradiation = nowDb.solarradiation,
             uvindex = nowDb.uvindex,
             conditions = nowDb.conditions,
-            icon = nowDb.icon,
+            icon = selectedImage(nowDb.icon),
             source = nowDb.source,
             sunrise = nowDb.sunrise,
             sunriseEpoch = nowDb.sunriseEpoch,
             sunset = nowDb.sunset,
             sunsetEpoch = nowDb.sunsetEpoch,
 
-            address = nowDb.address
+            address = nowDb.address,
+
+
+
         )
     }
 
     fun mapWeatherSevenDbToEntity(sevenDb: WeatherSevenDb): WeatherSevenDays {
         return WeatherSevenDays(
-            datetime = sevenDb.datetime,
+            datetime = convertWeekToSet(sevenDb.datetimeEpoch?.toLong()),
             datetimeEpoch = sevenDb.datetimeEpoch,
             tempmax = sevenDb.tempmax,
             tempmin = sevenDb.tempmin,
             temp = sevenDb.temp,
             feelslike = sevenDb.feelslike,
             humidity = sevenDb.humidity,
-            windspeed = sevenDb.windspeed
+            windspeed = sevenDb.windspeed,
+            icon = selectedImage(sevenDb.icon)
         )
     }
 
+
+    private fun convertTimeTempToSet(timeStemp: Long?): String {
+        if (timeStemp == null) return ""
+        val stemp = Timestamp(timeStemp * 1000)
+        val day = Date(stemp.time)
+        val pattern = "HH:mm"
+        // Время по гринвичу
+        val sdf = SimpleDateFormat(pattern, Locale.getDefault())
+        sdf.timeZone = TimeZone.getDefault()
+        return sdf.format(day)
+    }
+
+    private fun convertWeekToSet(timeStemp: Long?): String {
+        if (timeStemp == null) return ""
+        val stemp = (timeStemp * 1000)
+        val calendar = Calendar.getInstance()
+        calendar.timeInMillis = stemp
+        return calendar.getDisplayName(
+            Calendar.DAY_OF_WEEK,
+            Calendar.LONG,
+            Locale.ENGLISH
+        ) as String
+    }
+
+    private fun convertDayToSet(timeStemp: Long?): String {
+        if (timeStemp == null) return ""
+        val stemp = (timeStemp * 1000)
+        val calendar = Calendar.getInstance()
+        calendar.timeInMillis = stemp
+        return calendar.getDisplayName(
+            Calendar.DATE,
+            Calendar.LONG,
+            Locale.ENGLISH
+        ) as String
+
+    }
 }
+
+fun selectedImage(image: String?): Int {
+    val resource: Int =
+        when (image) {
+            "clear-day" -> (R.drawable.clear_day)
+            "clear-night" -> (R.drawable.clear_night)
+            "cloudy" -> (R.drawable.cloudy)
+            "sleet" -> (R.drawable.sleet)
+            "snow" -> (R.drawable.snow)
+            "snow-showers-day" -> (R.drawable.snow_showers_day)
+            "snow-showers-night" -> (R.drawable.showers_night)
+            "thunder" -> (R.drawable.thunder)
+            "thunder-rain" -> (R.drawable.thunder_rain)
+            "thunder-showers-day" -> (R.drawable.thunder_showers_day)
+            "thunder-showers-night" -> (R.drawable.thunder_showers_night)
+            "rain" -> (R.drawable.rain)
+            "rain-snow" -> (R.drawable.rain_snow)
+            "rain-snow-showers-day" -> (R.drawable.rain_snow_showers_day)
+            "rain-snow-showers-night" -> (R.drawable.thunder_showers_night)
+            "showers-day" -> (R.drawable.showers_day)
+            "showers-night" -> (R.drawable.showers_night)
+            "fog" -> (R.drawable.fog)
+            "wind" -> (R.drawable.wind)
+            "partly-cloudy-day" -> (R.drawable.partly_cloudy_day)
+            "partly-cloudy-night" -> (R.drawable.partly_cloudy_night)
+            "hail" -> (R.drawable.hail)
+
+            else -> (R.drawable.ic_launcher_background)
+        }
+    return resource.toInt()
+}
+

@@ -21,14 +21,16 @@ data class WeatherNow(
     val solarradiation: Double?,
     val uvindex: Double?,
     val conditions: String?,
-    val icon: String?,
+    val icon: Int,
     val source: String?,
     val sunrise: String?,
     val sunriseEpoch: Int?,
     val sunset: String?,
     val sunsetEpoch: Int?,
 
-    val address:String?
+    val address:String?,
+
+
     )
 
 // https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/Saint-Petersburg/today?unitGroup=metric&include=current&key=PDPFUPG89PEE5GXQEKA6VWGDB&contentType=json

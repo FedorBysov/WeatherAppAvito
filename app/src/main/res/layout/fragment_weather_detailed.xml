@@ -23,6 +23,12 @@
             android:orientation="vertical">
 
 
+<!--            <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--                android:id="@+id/fbSearchCity"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+
+
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/fbLocationDetermination"
                 android:layout_width="wrap_content"
@@ -30,6 +36,7 @@
                 android:layout_margin="32dp"
                 android:clickable="true"
                 android:focusable="true"
+                android:contentDescription="Button definition geo-position"
                 android:src="@drawable/map_icon"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -50,6 +57,7 @@
                     android:src="@drawable/map_icon" />
 
                 <TextView
+                    android:id="@+id/tvLocationNow"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -62,7 +70,7 @@
             </LinearLayout>
 
             <ImageView
-                android:id="@+id/iWeatherNow"
+                android:id="@+id/ivWeatherNow"
                 android:layout_width="150dp"
                 android:layout_height="130dp"
                 android:layout_marginStart="40dp"
@@ -82,7 +90,7 @@
                 app:cardElevation="0dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/iWeatherNow">
+                app:layout_constraintTop_toBottomOf="@id/ivWeatherNow">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -113,7 +121,7 @@
 
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/tvTempNow"
-                        tools:text="conditions" />
+                        android:text="conditions" />
 
                     <TextView
                         android:id="@+id/tvMaxTemp"
@@ -171,6 +179,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/linearLayout"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="parent"
@@ -294,23 +303,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <TextView
-
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="12dp"
-
-                        android:shadowColor="#1A000000"
-                        android:shadowDx="-2"
-                        android:shadowDy="3"
-                        android:shadowRadius="1"
-
-                        android:text="@string/today"
-                        android:textColor="@color/white"
-                        android:textSize="20sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/tvConstToday"
@@ -341,15 +333,16 @@
                         android:shadowDx="-2"
                         android:shadowDy="3"
                         android:shadowRadius="1"
-                        android:text="13, March"
                         android:textColor="@color/white"
                         android:textSize="20sp"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="13, March" />
 
                     <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvWeatherHour"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="12dp"
                         android:layout_marginEnd="16dp"
@@ -414,11 +407,13 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvWeatherWeek"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-
+                        android:layout_height="match_parent"
                         android:layout_marginStart="16dp"
                         android:layout_marginEnd="16dp"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        android:orientation="vertical"
                         app:layout_constraintTop_toBottomOf="@+id/tvConstNextForecast"
                         tools:listitem="@layout/item_weather_week" />
 

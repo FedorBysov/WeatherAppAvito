@@ -13,6 +13,7 @@ data class WeatherSevenDb(
     val temp: Double?,
     val feelslike: Double?,
     val humidity: Double?,
+    val icon: String?,
     val windspeed: Double?
 
     )
