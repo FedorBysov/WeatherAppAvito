@@ -26,7 +26,6 @@ class WeatherRepositoryIMPL(application: Application) : WeatherRepository {
                 mapper.mapWeatherHourDbToEntity(it)
             }
         }
-        //        return weatherDAO.getWeatherHourTable()
     }
 
     override fun getWeatherSevenDaysUseCase(): LiveData<List<WeatherSevenDays>> {
@@ -44,10 +43,6 @@ class WeatherRepositoryIMPL(application: Application) : WeatherRepository {
                     value = mapper.mapWeatherNowDbToEntity(it)
                 }
             }
-//        }
-//        return Transformations.map(weatherDAO.getWeatherNowTable()) {
-//            return@map mapper.mapWeatherNowDbToEntity(it)
-//        }
         }
 
     override suspend fun loadDataUseCase(location: String) {
@@ -64,20 +59,20 @@ class WeatherRepositoryIMPL(application: Application) : WeatherRepository {
 
                 val dbModelSevenList =
                     weatherSevenDto.days?.map { mapper.mapWeatherInfoSevenDaysDtoToDb(it) }
-                weatherDAO.insertWeatherSevenDayTable(dbModelSevenList)
 
 
                 val dbModelHourList =
                     weatherHourDto.days?.get(0)?.hours?.map { mapper.mapWeatherInfoHourDtoToDb(it) }
 
 
-                weatherDAO.insertWeatherHourTable(dbModelHourList)
                 val dbModelNow =
-                    mapper.mapWeatherInfoNowDtoToDb(weatherNowDto, weatherNowDto.currentConditions)
-//                        weatherSevenDto.days?.get(0)?.tempmin ?: 0.0,
-//                            weatherSevenDto.days?.get(0)?.tempmax ?: 0.0)
-                weatherDAO.insertWeatherNowTable(dbModelNow)
+                    mapper.mapWeatherInfoNowDtoToDb(weatherNowDto, weatherNowDto.currentConditions,
+                        weatherSevenDto.days?.get(0)?.tempmin ?: 0.0,
+                            weatherSevenDto.days?.get(0)?.tempmax ?: 0.0)
 
+                weatherDAO.insertWeatherHourTable(dbModelHourList)
+                weatherDAO.insertWeatherNowTable(dbModelNow)
+                weatherDAO.insertWeatherSevenDayTable(dbModelSevenList)
             } catch (e: Exception) {
             }
             delay(100000000)

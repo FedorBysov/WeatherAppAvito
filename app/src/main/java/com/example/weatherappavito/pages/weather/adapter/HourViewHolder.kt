@@ -1,4 +1,4 @@
-package com.example.weatherappavito.presenation.adaapters
+package com.example.weatherappavito.pages.weather.adapter
 
 import androidx.recyclerview.widget.RecyclerView
 import com.example.weatherappavito.databinding.ItemWeatherHourBinding

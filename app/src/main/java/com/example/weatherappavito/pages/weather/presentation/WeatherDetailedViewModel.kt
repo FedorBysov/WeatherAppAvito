@@ -1,4 +1,4 @@
-package com.example.weatherappavito.presenation
+package com.example.weatherappavito.pages.weather.presentation
 
 import android.app.Activity
 import android.app.Application
@@ -10,7 +10,6 @@ import android.os.Looper
 import android.util.Log
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -24,7 +23,7 @@ import com.google.android.gms.location.*
 import kotlinx.coroutines.launch
 import java.util.*
 
-class WeatherViewModel(application: Application) : AndroidViewModel(application) {
+class WeatherDetailedViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository = WeatherRepositoryIMPL(application)
     private val getWeatherNowUseCase = GetWeatherNowUseCase(repository)
@@ -33,30 +32,16 @@ class WeatherViewModel(application: Application) : AndroidViewModel(application)
     private val loadDataUseCase = LoadDataUseCase(repository)
 
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
-    lateinit var locationRequest: android.location.LocationRequest
-
-
-    private val _errorInputName = MutableLiveData<Boolean>()
-    val errorInputName: LiveData<Boolean>
-        get() = _errorInputName
-
-    private val _errorLoad = MutableLiveData<Boolean>()
-    val errorLoad: LiveData<Boolean>
-        get() = _errorInputName
-
 
     val weatherNowVM = getWeatherNowUseCase()
     val weatherWeekVM = getWeatherSevenDaysUseCase()
     val weatherHourVM = getWeatherTodayUseCase()
-//    init {
 
     fun loadData(string: String) {
         viewModelScope.launch() {
                 loadDataUseCase(string)
         }
     }
-//    }
-
 
     suspend fun location(context: Context, activity: Activity,int: Int) {
         fusedLocationProviderClient =
@@ -202,24 +187,6 @@ class WeatherViewModel(application: Application) : AndroidViewModel(application)
             ),
             int
         )
-    }
-
-
-    fun validateName(inputName: String?): String {
-        return inputName?.trim() ?: ""
-    }
-
-    fun validateInput(name: String): Boolean {
-        var result = true
-        if (name.isBlank()) {
-            _errorInputName.value = true
-            result = false
-        }
-        return result
-    }
-
-    fun resetInputName() {
-        _errorInputName.value = false
     }
 
 }

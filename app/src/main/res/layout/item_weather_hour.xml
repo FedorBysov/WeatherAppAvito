@@ -1,20 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
-    android:backgroundTint="#00FFFFFF"
     xmlns:tools="http://schemas.android.com/tools"
-    app:cardElevation="0dp"
-    android:id="@+id/cvItemHour"
-
-    app:cardUseCompatPadding="true">
-
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/icon_hour_background">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/icon_hour_background"
+    android:layout_marginStart="@dimen/space_4"
+    android:layout_marginEnd="@dimen/space_4"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
 
         <TextView
@@ -22,10 +15,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
-            android:layout_marginEnd="12dp"
             android:layout_marginTop="12dp"
+            android:layout_marginEnd="12dp"
+            android:textColor="@color/black"
             android:textSize="18sp"
-            android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -41,26 +34,23 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvTemperatureHourItem"
-            tools:src="@drawable/wind"
-
-            />
+            tools:src="@drawable/wind" />
 
         <TextView
             android:id="@+id/tvTimeHourItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:textSize="18sp"
             android:layout_marginStart="4dp"
             android:layout_marginEnd="4dp"
+            android:layout_marginBottom="16dp"
+            android:textColor="@color/black"
+            android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginBottom="16dp"
             tools:text="00:00" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-</androidx.cardview.widget.CardView>

@@ -30,7 +30,8 @@ data class WeatherNow(
 
     val address:String?,
 
-
+    val minTemp: Double?,
+    val maxTemp: Double?
     )
 
 // https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/Saint-Petersburg/today?unitGroup=metric&include=current&key=PDPFUPG89PEE5GXQEKA6VWGDB&contentType=json

@@ -1,7 +1,6 @@
-package com.example.weatherappavito.presenation.adaapters
+package com.example.weatherappavito.pages.weather.adapter
 
 import androidx.recyclerview.widget.DiffUtil
-import com.example.weatherappavito.domain.entity.WeatherHour
 import com.example.weatherappavito.domain.entity.WeatherSevenDays
 
 class WeekDiffCallBack:DiffUtil.ItemCallback<WeatherSevenDays>() {
