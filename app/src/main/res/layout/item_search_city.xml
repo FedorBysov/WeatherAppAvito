@@ -7,8 +7,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/application_background"
     android:clickable="true"
-    android:focusable="true"
-    tools:context=".pages.search.presentation.SearchCityFragment">
+    android:focusable="true">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayoutSearch"

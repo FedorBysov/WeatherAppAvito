@@ -1,20 +1,34 @@
 package com.example.weatherappavito.pages.weather.presentation
 
+import android.content.Context
+import android.content.pm.PackageManager
+import android.location.Geocoder
+import android.location.Location
 import android.location.LocationRequest
 import android.os.Bundle
+import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
+import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.example.weatherappavito.R
 import com.example.weatherappavito.databinding.FragmentWeatherDetailedBinding
-import com.example.weatherappavito.pages.search.presentation.SearchCityFragment
 import com.example.weatherappavito.pages.weather.adapter.AdapterWeatherHour
 import com.example.weatherappavito.pages.weather.adapter.AdapterWeatherWeek
 import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationResult
+import com.google.android.gms.location.LocationServices
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import kotlinx.android.synthetic.main.item_search_city.*
 import kotlinx.coroutines.launch
+import java.util.*
 
 
 class WeatherDetailedFragment : Fragment() {
@@ -46,7 +60,7 @@ class WeatherDetailedFragment : Fragment() {
         val adapterWeek = AdapterWeatherWeek()
 
         lifecycleScope.launch {
-            viewModel.location(requireContext(), requireActivity(), REQUEST_CODE)
+            location(requireContext())
         }
 
 
@@ -77,21 +91,151 @@ class WeatherDetailedFragment : Fragment() {
 
 
         binding.floatingButtonSearchCity.setOnClickListener {
-            requireActivity().supportFragmentManager
-                .beginTransaction()
-                .addToBackStack(NAME)
-                .add(R.id.weather_detailed_container, SearchCityFragment())
-                .commit()
+            showBottomSheetDialog()
         }
 
         binding.floatingButtonLocationDetermination.setOnClickListener {
             lifecycleScope.launch {
-                viewModel.location(requireContext(), requireActivity(), REQUEST_CODE)
+                location(requireContext())
             }
         }
 
     }
 
+    fun showBottomSheetDialog() {
+        val dialog = BottomSheetDialog(requireContext())
+        dialog.setContentView(R.layout.item_search_city)
+        dialog.btnSearch.setOnClickListener {
+            viewModel.loadData(dialog.editTextSearch.text.toString())
+            dialog.dismiss()
+        }
+        dialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+        dialog.show()
+    }
+
+    suspend fun location(context: Context) {
+        fusedLocationProviderClient =
+            LocationServices.getFusedLocationProviderClient(requireContext())
+        requestPermission(context)
+        getLastLocation(context)
+    }
+
+    suspend fun getLastLocation(context: Context) {
+        if (сheckPermission(context)) {
+            if (ActivityCompat.checkSelfPermission(
+                    context,
+                    android.Manifest.permission.ACCESS_COARSE_LOCATION
+                ) == PackageManager.PERMISSION_GRANTED ||
+                ActivityCompat.checkSelfPermission(
+                    context,
+                    android.Manifest.permission.ACCESS_FINE_LOCATION
+                ) == PackageManager.PERMISSION_GRANTED
+            ) {
+                fusedLocationProviderClient.lastLocation.addOnCompleteListener { task ->
+                    val location: Location? = task.result
+                    if (location == null) {
+                        lifecycleScope.launch {
+                            viewModel.loadData(newLocationData(context))
+                        }
+                    } else {
+                        Log.d(
+                            "Debug",
+                            "${
+                                lifecycleScope.launch {
+                                    viewModel.loadData(
+                                        getCityName(
+                                            location.latitude,
+                                            location.longitude,
+                                            context
+                                        )
+                                    )
+                                }
+                            }"
+                        )
+
+                    }
+                }
+            } else {
+                Toast.makeText(context, "Please Turn on Your device Location", Toast.LENGTH_SHORT)
+                    .show()
+            }
+        } else {
+            requestPermission(context)
+        }
+    }
+
+    //1
+    suspend fun сheckPermission(context: Context): Boolean {
+        if (
+            ActivityCompat.checkSelfPermission(
+                context,
+                android.Manifest.permission.ACCESS_COARSE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED ||
+            ActivityCompat.checkSelfPermission(
+                context,
+                android.Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            return true
+        }
+        return false
+    }
+
+
+    suspend fun newLocationData(context: Context): String {
+        val locationRequest = com.google.android.gms.location.LocationRequest()
+        fusedLocationProviderClient =
+            LocationServices.getFusedLocationProviderClient(requireActivity())
+        val a = if (
+            ActivityCompat.checkSelfPermission(
+                context,
+                android.Manifest.permission.ACCESS_COARSE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED ||
+            ActivityCompat.checkSelfPermission(
+                context,
+                android.Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            fusedLocationProviderClient!!.requestLocationUpdates(
+                locationRequest, test(context), Looper.myLooper()
+            ).toString()
+        } else {
+            ""
+        }
+        return a
+    }
+
+    private fun test(context: Context): LocationCallback {
+        val locationCallback = object : LocationCallback() {
+            override fun onLocationResult(locationResult: LocationResult) {
+                val lastLocation: Location = locationResult.lastLocation!!
+            }
+        }
+        return locationCallback
+    }
+
+    //3
+    suspend fun getCityName(lat: Double, long: Double, context: Context): String {
+        var cityName: String = ""
+        val geoCoder = Geocoder(context, Locale.getDefault())
+        val Adress = geoCoder.getFromLocation(lat, long, 3)
+
+        cityName = Adress?.get(0)?.locality ?: ""
+        Log.d("Debug:", cityName)
+        return cityName
+    }
+
+    //4
+    suspend fun requestPermission(context: Context) {
+        ActivityCompat.requestPermissions(
+            requireActivity(),
+            arrayOf(
+                android.Manifest.permission.ACCESS_FINE_LOCATION,
+                android.Manifest.permission.ACCESS_COARSE_LOCATION
+            ),
+            REQUEST_CODE
+        )
+    }
 
     companion object {
 
