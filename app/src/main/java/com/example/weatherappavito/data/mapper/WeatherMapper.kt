@@ -1,6 +1,5 @@
 package com.example.weatherappavito.data.mapper
 
-import android.icu.text.DateFormat.DAY
 import com.example.weatherappavito.R
 import com.example.weatherappavito.data.api.model.weatherHourResponse.WeatherHourDto
 import com.example.weatherappavito.data.api.model.weatherNowResponse.WeatherInfoNowDto
@@ -22,7 +21,7 @@ class WeatherMapper {
 
     fun mapWeatherInfoNowDtoToDb(
         infoNowDto: WeatherInfoNowDto,
-        nowDto: WeatherNowDto
+        nowDto: WeatherNowDto, tempMin: Double, tempMax: Double
     ): WeatherNowDb {
         return WeatherNowDb(
             datetime = nowDto.datetime,
@@ -53,7 +52,8 @@ class WeatherMapper {
 
             address = infoNowDto.address,
 
-
+            minTemp = tempMin,
+            maxTemp = tempMax
         )
     }
 
@@ -95,7 +95,7 @@ class WeatherMapper {
 
     fun mapWeatherNowDbToEntity(nowDb: WeatherNowDb): WeatherNow {
         return WeatherNow(
-            datetime = nowDb.datetime,
+            datetime = convertDayToSet(nowDb.datetimeEpoch?.toLong()) +", "+convertMonthToSet(nowDb.datetimeEpoch?.toLong()),
             datetimeEpoch = nowDb.datetimeEpoch,
             temp = nowDb.temp,
             feelslike = nowDb.feelslike,
@@ -123,7 +123,8 @@ class WeatherMapper {
 
             address = nowDb.address,
 
-
+            maxTemp = nowDb.maxTemp,
+            minTemp = nowDb.minTemp
 
         )
     }
@@ -169,45 +170,51 @@ class WeatherMapper {
     private fun convertDayToSet(timeStemp: Long?): String {
         if (timeStemp == null) return ""
         val stemp = (timeStemp * 1000)
+        return SimpleDateFormat("dd").format(Date(stemp)).toString()
+    }
+
+    private fun convertMonthToSet(timeStemp: Long?): String {
+        if (timeStemp == null) return ""
+        val stemp = (timeStemp * 1000)
         val calendar = Calendar.getInstance()
         calendar.timeInMillis = stemp
         return calendar.getDisplayName(
-            Calendar.DATE,
+            Calendar.MONTH,
             Calendar.LONG,
             Locale.ENGLISH
         ) as String
-
     }
-}
 
-fun selectedImage(image: String?): Int {
-    val resource: Int =
-        when (image) {
-            "clear-day" -> (R.drawable.clear_day)
-            "clear-night" -> (R.drawable.clear_night)
-            "cloudy" -> (R.drawable.cloudy)
-            "sleet" -> (R.drawable.sleet)
-            "snow" -> (R.drawable.snow)
-            "snow-showers-day" -> (R.drawable.snow_showers_day)
-            "snow-showers-night" -> (R.drawable.showers_night)
-            "thunder" -> (R.drawable.thunder)
-            "thunder-rain" -> (R.drawable.thunder_rain)
-            "thunder-showers-day" -> (R.drawable.thunder_showers_day)
-            "thunder-showers-night" -> (R.drawable.thunder_showers_night)
-            "rain" -> (R.drawable.rain)
-            "rain-snow" -> (R.drawable.rain_snow)
-            "rain-snow-showers-day" -> (R.drawable.rain_snow_showers_day)
-            "rain-snow-showers-night" -> (R.drawable.thunder_showers_night)
-            "showers-day" -> (R.drawable.showers_day)
-            "showers-night" -> (R.drawable.showers_night)
-            "fog" -> (R.drawable.fog)
-            "wind" -> (R.drawable.wind)
-            "partly-cloudy-day" -> (R.drawable.partly_cloudy_day)
-            "partly-cloudy-night" -> (R.drawable.partly_cloudy_night)
-            "hail" -> (R.drawable.hail)
 
-            else -> (R.drawable.ic_launcher_background)
-        }
-    return resource.toInt()
+    fun selectedImage(image: String?): Int {
+        val resource: Int =
+            when (image) {
+                "clear-day" -> (R.drawable.clear_day)
+                "clear-night" -> (R.drawable.clear_night)
+                "cloudy" -> (R.drawable.cloudy)
+                "sleet" -> (R.drawable.sleet)
+                "snow" -> (R.drawable.snow)
+                "snow-showers-day" -> (R.drawable.snow_showers_day)
+                "snow-showers-night" -> (R.drawable.showers_night)
+                "thunder" -> (R.drawable.thunder)
+                "thunder-rain" -> (R.drawable.thunder_rain)
+                "thunder-showers-day" -> (R.drawable.thunder_showers_day)
+                "thunder-showers-night" -> (R.drawable.thunder_showers_night)
+                "rain" -> (R.drawable.rain)
+                "rain-snow" -> (R.drawable.rain_snow)
+                "rain-snow-showers-day" -> (R.drawable.rain_snow_showers_day)
+                "rain-snow-showers-night" -> (R.drawable.thunder_showers_night)
+                "showers-day" -> (R.drawable.showers_day)
+                "showers-night" -> (R.drawable.showers_night)
+                "fog" -> (R.drawable.fog)
+                "wind" -> (R.drawable.wind)
+                "partly-cloudy-day" -> (R.drawable.partly_cloudy_day)
+                "partly-cloudy-night" -> (R.drawable.partly_cloudy_night)
+                "hail" -> (R.drawable.hail)
+
+                else -> (R.drawable.ic_launcher_background)
+            }
+        return resource.toInt()
+    }
 }
 

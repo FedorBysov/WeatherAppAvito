@@ -1,4 +1,4 @@
-package com.example.weatherappavito.presenation
+package com.example.weatherappavito.pages.weather.presentation
 
 import android.location.LocationRequest
 import android.os.Bundle
@@ -6,13 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.example.weatherappavito.R
 import com.example.weatherappavito.databinding.FragmentWeatherDetailedBinding
-import com.example.weatherappavito.presenation.adaapters.AdapterWeatherHour
-import com.example.weatherappavito.presenation.adaapters.AdapterWeatherWeek
+import com.example.weatherappavito.pages.search.presentation.SearchCityFragment
+import com.example.weatherappavito.pages.weather.adapter.AdapterWeatherHour
+import com.example.weatherappavito.pages.weather.adapter.AdapterWeatherWeek
 import com.google.android.gms.location.FusedLocationProviderClient
 import kotlinx.coroutines.launch
 
@@ -23,12 +23,10 @@ class WeatherDetailedFragment : Fragment() {
     private val binding
         get() = _binding!!
 
-    private lateinit var viewModel: WeatherViewModel
+    private lateinit var viewModel: WeatherDetailedViewModel
 
-    //
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     lateinit var locationRequest: LocationRequest
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,24 +38,22 @@ class WeatherDetailedFragment : Fragment() {
 
     }
 
-
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = ViewModelProvider(this)[WeatherViewModel::class.java]
+        viewModel = ViewModelProvider(this)[WeatherDetailedViewModel::class.java]
         val adapterHour = AdapterWeatherHour()
         val adapterWeek = AdapterWeatherWeek()
 
         lifecycleScope.launch {
-            viewModel.location(requireContext(),requireActivity(), REQUEST_CODE)
+            viewModel.location(requireContext(), requireActivity(), REQUEST_CODE)
         }
 
 
-        binding.rvWeatherHour.adapter = adapterHour
-        binding.rvWeatherWeek.adapter = adapterWeek
-        binding.rvWeatherHour.itemAnimator = null
-        binding.rvWeatherWeek.itemAnimator = null
+        binding.recyclerViewWeatherHour.adapter = adapterHour
+        binding.recyclerViewWeatherWeek.adapter = adapterWeek
+        binding.recyclerViewWeatherHour.itemAnimator = null
+        binding.recyclerViewWeatherWeek.itemAnimator = null
 
         viewModel.weatherHourVM.observe(viewLifecycleOwner) {
             adapterHour.submitList(it)
@@ -67,19 +63,20 @@ class WeatherDetailedFragment : Fragment() {
         }
 
         viewModel.weatherNowVM.observe(viewLifecycleOwner) {
-//            binding.tvMaxTemp.text = it.tempMax?.toInt().toString()
-//            binding.tvMinTemp.text = it.tempMin?.toInt().toString()
-            binding.tvLocationNow.text = it.address
-            binding.ivWeatherNow.setImageResource(it.icon)
-            binding.tvTempNow.text = String.format("%S°", it.temp?.toInt().toString())
-//            binding.tvDataToday.text = it.date
-            binding.tvPrecip.text = String.format("%s %%", it.precip?.toInt().toString())
-            binding.tvHumidity.text = String.format("%S %%", it.humidity?.toInt().toString())
-            binding.tvSpeedWind.text = String.format("%s Km/h", it.windspeed?.toInt().toString())
+            binding.textViewMaxTemp.text = String.format("Max: %S°", it.maxTemp?.toInt().toString())
+            binding.textViewMinTemp.text = String.format("Min: %S°", it.minTemp?.toInt().toString())
+            binding.textViewLocationNow.text = it.address
+            binding.imageViewWeatherNow.setImageResource(it.icon)
+            binding.textViewTempNow.text = String.format("%S°", it.temp?.toInt().toString())
+            binding.textViewDataToday.text = it.datetime
+            binding.textViewPrecip.text = String.format("%s %%", it.precip?.toInt().toString())
+            binding.textViewHumidity.text = String.format("%S %%", it.humidity?.toInt().toString())
+            binding.textViewSpeedWind.text =
+                String.format("%s Km/h", it.windspeed?.toInt().toString())
         }
 
 
-        binding.fbSearchCity.setOnClickListener {
+        binding.floatingButtonSearchCity.setOnClickListener {
             requireActivity().supportFragmentManager
                 .beginTransaction()
                 .addToBackStack(NAME)
@@ -87,14 +84,13 @@ class WeatherDetailedFragment : Fragment() {
                 .commit()
         }
 
-        binding.fbLocationDetermination.setOnClickListener {
+        binding.floatingButtonLocationDetermination.setOnClickListener {
             lifecycleScope.launch {
-                viewModel.location(requireContext(),requireActivity(), REQUEST_CODE)
+                viewModel.location(requireContext(), requireActivity(), REQUEST_CODE)
             }
         }
 
     }
-
 
 
     companion object {

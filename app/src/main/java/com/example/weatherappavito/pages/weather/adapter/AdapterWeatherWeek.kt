@@ -1,9 +1,8 @@
-package com.example.weatherappavito.presenation.adaapters
+package com.example.weatherappavito.pages.weather.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
-import com.example.weatherappavito.R
 import com.example.weatherappavito.databinding.ItemWeatherWeekBinding
 import com.example.weatherappavito.domain.entity.WeatherSevenDays
 

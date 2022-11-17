@@ -1,9 +1,8 @@
-package com.example.weatherappavito.presenation
+package com.example.weatherappavito
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.weatherappavito.R
-import com.example.weatherappavito.databinding.ActivityMainBinding
+import com.example.weatherappavito.pages.weather.presentation.WeatherDetailedFragment
 
 
 class MainActivity : AppCompatActivity() {

@@ -1,177 +1,141 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/weather_detailed_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presenation.WeatherDetailedFragment">
+    tools:context=".pages.weather.presentation.WeatherDetailedFragment">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/application_background">
+        android:background="@drawable/application_background"
+        android:padding="@dimen/space_24">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
+            android:layout_height="match_parent">
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/fbSearchCity"
+                android:id="@+id/floatingButtonSearchCity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_16"
+                android:layout_marginEnd="@dimen/space_2"
                 android:clickable="true"
-                android:focusable="true"
                 android:contentDescription="@string/CD_search_city"
+                android:focusable="true"
                 android:src="@drawable/search_icon"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/fbLocationDetermination"
-                android:layout_marginEnd="32dp"
-                android:layout_marginTop="16dp"/>
-
+                app:layout_constraintTop_toBottomOf="@id/floatingButtonLocationDetermination" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/fbLocationDetermination"
+                android:id="@+id/floatingButtonLocationDetermination"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="32dp"
+                android:layout_margin="@dimen/space_2"
                 android:clickable="true"
-                android:focusable="true"
                 android:contentDescription="@string/CD_button_definition_geo_position"
+                android:focusable="true"
                 android:src="@drawable/map_icon"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-
-            <LinearLayout
+            <ImageView
+                android:id="@+id/ImageViewLocationNow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="28dp"
-                android:layout_marginTop="26dp"
-                android:orientation="horizontal"
+                android:layout_margin="@dimen/space_6"
+                android:src="@drawable/map_icon"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/map_icon" />
-
-                <TextView
-                    android:id="@+id/tvLocationNow"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="8dp"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    tools:text="Saint-Petersburg" />
-
-            </LinearLayout>
+            <TextView
+                android:id="@+id/textViewLocationNow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/space_2"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/ImageViewLocationNow"
+                app:layout_constraintStart_toEndOf="@id/ImageViewLocationNow"
+                app:layout_constraintTop_toTopOf="@id/ImageViewLocationNow"
+                tools:text="Saint-Petersburg" />
 
             <ImageView
-                android:id="@+id/ivWeatherNow"
+                android:id="@+id/imageViewWeatherNow"
                 android:layout_width="150dp"
                 android:layout_height="130dp"
-                android:layout_marginStart="40dp"
-                android:layout_marginTop="80dp"
-                android:layout_marginEnd="40dp"
+                android:layout_marginTop="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewLocationNow"
                 tools:src="@drawable/hail" />
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cvTempNow"
-                android:layout_width="match_parent"
+
+            <TextView
+                android:id="@+id/textViewTempNow"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                app:cardBackgroundColor="#00DDDDDD"
-                app:cardElevation="0dp"
+                android:layout_marginTop="@dimen/space_20"
+                android:padding="@dimen/space_20"
+                android:textColor="#FFF"
+                android:textSize="64sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ivWeatherNow">
+                app:layout_constraintTop_toBottomOf="@id/imageViewWeatherNow"
+                tools:text="15\u2103" />
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/textViewConditions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tv_conditions"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textViewTempNow" />
 
-                    <TextView
-                        android:id="@+id/tvTempNow"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="20dp"
-                        android:textColor="#FFF"
+            <TextView
+                android:id="@+id/textViewMaxTemp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/space_6"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textViewMinTemp"
+                app:layout_constraintTop_toBottomOf="@+id/textViewConditions"
+                tools:text="Max: 30\u2103" />
 
-                        android:textSize="64sp"
-
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:text="15\u2103" />
-
-                    <TextView
-                        android:id="@+id/tvConditions"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-
-                        android:textColor="@color/white"
-                        android:textSize="18sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tvTempNow"
-                        android:text="@string/tv_conditions" />
-
-                    <TextView
-                        android:id="@+id/tvMaxTemp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-
-                        android:padding="5dp"
-                        android:textColor="@color/white"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/tvMinTemp"
-
-                        app:layout_constraintTop_toBottomOf="@+id/tvConditions"
-                        tools:text="Max: 30\u2103" />
-
-                    <TextView
-                        android:id="@+id/tvMinTemp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-
-                        android:padding="5dp"
-                        android:textColor="@color/white"
-                        app:layout_constraintEnd_toStartOf="@+id/tvMaxTemp"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintHorizontal_chainStyle="packed"
-                        app:layout_constraintStart_toStartOf="parent"
+            <TextView
+                android:id="@+id/textViewMinTemp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/space_6"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toStartOf="@+id/textViewMaxTemp"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewConditions"
+                tools:text="Min: 15\u2103" />
 
 
-                        app:layout_constraintTop_toBottomOf="@+id/tvConditions"
-                        tools:text="Min: 15\u2103" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </androidx.cardview.widget.CardView>
-
+            <!--padding 40
+            drawable+-->
             <androidx.cardview.widget.CardView
-                android:id="@+id/cvInfoNow"
+                android:id="@+id/cardViewInfoNow"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
-                android:layout_marginStart="40dp"
-                android:layout_marginTop="30dp"
-                android:layout_marginEnd="40dp"
+                android:layout_marginTop="@dimen/space_32"
                 app:cardBackgroundColor="@color/card_background"
                 app:cardCornerRadius="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cvTempNow">
+                app:layout_constraintTop_toBottomOf="@id/textViewMaxTemp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -184,32 +148,28 @@
                         android:orientation="horizontal"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/linearLayout"
-                        app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
                         <ImageView
-                            android:id="@+id/Ivprecip"
+                            android:id="@+id/imageViewPrecip"
                             android:layout_width="wrap_content"
-                            android:layout_height="47dp"
-
-                            android:paddingTop="15dp"
-                            android:paddingBottom="15dp"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="@dimen/space_16"
+                            android:paddingBottom="@dimen/space_16"
                             android:src="@drawable/precip_icon" />
 
 
                         <TextView
-                            android:id="@+id/tvPrecip"
+                            android:id="@+id/textViewPrecip"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:paddingStart="5dp"
-                            android:paddingTop="15dp"
-                            android:paddingBottom="15dp"
-
+                            android:paddingStart="@dimen/space_6"
+                            android:paddingTop="@dimen/space_16"
+                            android:paddingBottom="@dimen/space_16"
                             android:textColor="@color/white"
                             android:textSize="14sp"
                             android:textStyle="bold"
-
                             tools:text="10 %" />
 
                     </LinearLayout>
@@ -219,32 +179,27 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:layout_constraintEnd_toStartOf="@+id/linearLayout3"
-                        app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toEndOf="@+id/linearLayout2"
                         app:layout_constraintTop_toTopOf="parent">
 
                         <ImageView
-                            android:id="@+id/ivHumidity"
+                            android:id="@+id/imageViewHumidity"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-
-                            android:paddingTop="15dp"
-                            android:paddingBottom="15dp"
+                            android:paddingTop="@dimen/space_16"
+                            android:paddingBottom="@dimen/space_16"
                             android:src="@drawable/humidity_icon" />
 
                         <TextView
-                            android:id="@+id/tvHumidity"
+                            android:id="@+id/textViewHumidity"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:paddingStart="5dp"
-                            android:paddingTop="15dp"
-                            android:paddingBottom="15dp"
-
+                            android:paddingStart="@dimen/space_6"
+                            android:paddingTop="@dimen/space_16"
+                            android:paddingBottom="@dimen/space_16"
                             android:textColor="@color/white"
                             android:textSize="14sp"
                             android:textStyle="bold"
-
-
                             tools:text="67 %" />
 
                     </LinearLayout>
@@ -254,31 +209,26 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toEndOf="@+id/linearLayout"
                         app:layout_constraintTop_toTopOf="parent">
 
                         <ImageView
-                            android:id="@+id/ivSpeedWind"
+                            android:id="@+id/imageViewSpeedWind"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-
-                            android:paddingTop="15dp"
-                            android:paddingBottom="15dp"
+                            android:paddingTop="@dimen/space_16"
+                            android:paddingBottom="@dimen/space_16"
                             android:src="@drawable/speed_wind_icon" />
 
                         <TextView
-                            android:id="@+id/tvSpeedWind"
+                            android:id="@+id/textViewSpeedWind"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:paddingStart="5dp"
                             android:paddingTop="15dp"
                             android:paddingBottom="15dp"
-
                             android:textColor="@color/white"
                             android:textSize="14sp"
                             android:textStyle="bold"
-
                             tools:text="12 Km/h" />
                     </LinearLayout>
 
@@ -287,20 +237,15 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/cvInfohour"
+                android:id="@+id/cardViewInfoHour"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
-                android:layout_marginStart="40dp"
                 android:layout_marginTop="20dp"
-                android:layout_marginEnd="40dp"
-
                 app:cardBackgroundColor="@color/card_background"
                 app:cardCornerRadius="20dp"
-
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cvInfoNow">
+                app:layout_constraintTop_toBottomOf="@id/cardViewInfoNow">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -308,17 +253,11 @@
 
 
                     <TextView
-                        android:id="@+id/tvConstToday"
+                        android:id="@+id/textViewConstToday"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
+                        android:layout_marginStart="@dimen/space_16"
                         android:layout_marginTop="12dp"
-
-                        android:shadowColor="#1A000000"
-                        android:shadowDx="-2"
-                        android:shadowDy="3"
-                        android:shadowRadius="1"
-
                         android:text="@string/today"
                         android:textColor="@color/white"
                         android:textSize="20sp"
@@ -327,15 +266,11 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/tvDataToday"
+                        android:id="@+id/textViewDataToday"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
-                        android:layout_marginEnd="16dp"
-                        android:shadowColor="#1A000000"
-                        android:shadowDx="-2"
-                        android:shadowDy="3"
-                        android:shadowRadius="1"
+                        android:layout_marginEnd="@dimen/space_16"
                         android:textColor="@color/white"
                         android:textSize="20sp"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -343,59 +278,46 @@
                         tools:text="13, March" />
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rvWeatherHour"
+                        android:id="@+id/recyclerViewWeatherHour"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="12dp"
-                        android:layout_marginEnd="16dp"
-                        android:layout_marginBottom="14dp"
+                        android:layout_margin="@dimen/space_16"
                         android:orientation="horizontal"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tvConstToday"
-
+                        app:layout_constraintTop_toBottomOf="@id/textViewConstToday"
                         tools:listitem="@layout/item_weather_hour" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
 
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
-                android:layout_marginStart="40dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="40dp"
-                android:layout_marginBottom="16dp"
-
+                android:layout_marginTop="@dimen/space_20"
+                android:layout_marginBottom="@dimen/space_16"
                 app:cardBackgroundColor="@color/card_background"
                 app:cardCornerRadius="20dp"
-
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cvInfohour">
-
+                app:layout_constraintTop_toBottomOf="@id/cardViewInfoHour">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
                     <TextView
-                        android:id="@+id/tvConstNextForecast"
+                        android:id="@+id/textViewConstNextForecast"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-
-                        android:padding="12dp"
+                        android:padding="@dimen/space_16"
                         android:text="@string/next_forecast"
                         android:textColor="@color/white"
                         android:textSize="20sp"
-
                         android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -403,25 +325,24 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:layout_marginEnd="18dp"
+                        android:layout_marginTop="@dimen/space_16"
+                        android:layout_marginEnd="@dimen/space_18"
                         android:src="@drawable/calendar_icon"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rvWeatherWeek"
+                        android:id="@+id/recyclerViewWeatherWeek"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginEnd="16dp"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        android:layout_marginStart="@dimen/space_16"
+                        android:layout_marginEnd="@dimen/space_16"
                         android:orientation="vertical"
-                        app:layout_constraintTop_toBottomOf="@+id/tvConstNextForecast"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintTop_toBottomOf="@+id/textViewConstNextForecast"
                         tools:listitem="@layout/item_weather_week" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
 
             </androidx.cardview.widget.CardView>
 
@@ -429,4 +350,4 @@
 
     </androidx.core.widget.NestedScrollView>
 
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
