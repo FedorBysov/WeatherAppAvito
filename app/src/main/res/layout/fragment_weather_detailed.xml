@@ -123,228 +123,202 @@
                 app:layout_constraintTop_toBottomOf="@+id/textViewConditions"
                 tools:text="Min: 15\u2103" />
 
-
-            <!--padding 40
-            drawable+-->
-            <androidx.cardview.widget.CardView
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cardViewInfoNow"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_32"
-                app:cardBackgroundColor="@color/card_background"
-                app:cardCornerRadius="20dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/card_background"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/textViewMaxTemp">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                <LinearLayout
+                    android:id="@+id/linearLayout2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/linearLayout"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
-                    <LinearLayout
-                        android:id="@+id/linearLayout2"
+                    <ImageView
+                        android:id="@+id/imageViewPrecip"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/linearLayout"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <ImageView
-                            android:id="@+id/imageViewPrecip"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingTop="@dimen/space_16"
-                            android:paddingBottom="@dimen/space_16"
-                            android:src="@drawable/precip_icon" />
+                        android:paddingTop="@dimen/space_16"
+                        android:paddingBottom="@dimen/space_16"
+                        android:src="@drawable/precip_icon" />
 
 
-                        <TextView
-                            android:id="@+id/textViewPrecip"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingStart="@dimen/space_6"
-                            android:paddingTop="@dimen/space_16"
-                            android:paddingBottom="@dimen/space_16"
-                            android:textColor="@color/white"
-                            android:textSize="14sp"
-                            android:textStyle="bold"
-                            tools:text="10 %" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/linearLayout"
+                    <TextView
+                        android:id="@+id/textViewPrecip"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintEnd_toStartOf="@+id/linearLayout3"
-                        app:layout_constraintStart_toEndOf="@+id/linearLayout2"
-                        app:layout_constraintTop_toTopOf="parent">
+                        android:paddingStart="@dimen/space_6"
+                        android:paddingTop="@dimen/space_16"
+                        android:paddingBottom="@dimen/space_16"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        tools:text="10 %" />
 
-                        <ImageView
-                            android:id="@+id/imageViewHumidity"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingTop="@dimen/space_16"
-                            android:paddingBottom="@dimen/space_16"
-                            android:src="@drawable/humidity_icon" />
+                </LinearLayout>
 
-                        <TextView
-                            android:id="@+id/textViewHumidity"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingStart="@dimen/space_6"
-                            android:paddingTop="@dimen/space_16"
-                            android:paddingBottom="@dimen/space_16"
-                            android:textColor="@color/white"
-                            android:textSize="14sp"
-                            android:textStyle="bold"
-                            tools:text="67 %" />
+                <LinearLayout
+                    android:id="@+id/linearLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toStartOf="@+id/linearLayout3"
+                    app:layout_constraintStart_toEndOf="@+id/linearLayout2"
+                    app:layout_constraintTop_toTopOf="parent">
 
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/linearLayout3"
+                    <ImageView
+                        android:id="@+id/imageViewHumidity"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/linearLayout"
-                        app:layout_constraintTop_toTopOf="parent">
+                        android:paddingTop="@dimen/space_16"
+                        android:paddingBottom="@dimen/space_16"
+                        android:src="@drawable/humidity_icon" />
 
-                        <ImageView
-                            android:id="@+id/imageViewSpeedWind"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingTop="@dimen/space_16"
-                            android:paddingBottom="@dimen/space_16"
-                            android:src="@drawable/speed_wind_icon" />
+                    <TextView
+                        android:id="@+id/textViewHumidity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="@dimen/space_6"
+                        android:paddingTop="@dimen/space_16"
+                        android:paddingBottom="@dimen/space_16"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        tools:text="67 %" />
 
-                        <TextView
-                            android:id="@+id/textViewSpeedWind"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingTop="15dp"
-                            android:paddingBottom="15dp"
-                            android:textColor="@color/white"
-                            android:textSize="14sp"
-                            android:textStyle="bold"
-                            tools:text="12 Km/h" />
-                    </LinearLayout>
+                </LinearLayout>
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                <LinearLayout
+                    android:id="@+id/linearLayout3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/linearLayout"
+                    app:layout_constraintTop_toTopOf="parent">
 
-            </androidx.cardview.widget.CardView>
+                    <ImageView
+                        android:id="@+id/imageViewSpeedWind"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="@dimen/space_16"
+                        android:paddingBottom="@dimen/space_16"
+                        android:src="@drawable/speed_wind_icon" />
 
-            <androidx.cardview.widget.CardView
+                    <TextView
+                        android:id="@+id/textViewSpeedWind"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="15dp"
+                        android:paddingBottom="15dp"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        tools:text="12 Km/h" />
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cardViewInfoHour"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                app:cardBackgroundColor="@color/card_background"
-                app:cardCornerRadius="20dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/space_20"
+                android:background="@drawable/card_background"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/cardViewInfoNow">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+
+                <TextView
+                    android:id="@+id/textViewConstToday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_16"
+                    android:layout_marginTop="@dimen/space_12"
+                    android:text="@string/today"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textViewDataToday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_12"
+                    android:layout_marginEnd="@dimen/space_16"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="13, March" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerViewWeatherHour"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/space_16"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textViewConstToday"
+                    tools:listitem="@layout/item_weather_hour" />
 
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    <TextView
-                        android:id="@+id/textViewConstToday"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/space_16"
-                        android:layout_marginTop="12dp"
-                        android:text="@string/today"
-                        android:textColor="@color/white"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/textViewDataToday"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:layout_marginEnd="@dimen/space_16"
-                        android:textColor="@color/white"
-                        android:textSize="20sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:text="13, March" />
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recyclerViewWeatherHour"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="@dimen/space_16"
-                        android:orientation="horizontal"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/textViewConstToday"
-                        tools:listitem="@layout/item_weather_hour" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/space_20"
-                android:layout_marginBottom="@dimen/space_16"
-                app:cardBackgroundColor="@color/card_background"
-                app:cardCornerRadius="20dp"
+                android:background="@drawable/card_background"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/cardViewInfoHour">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <TextView
+                    android:id="@+id/textViewConstNextForecast"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/space_16"
+                    android:text="@string/next_forecast"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_16"
+                    android:layout_marginEnd="@dimen/space_18"
+                    android:src="@drawable/calendar_icon"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerViewWeatherWeek"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/space_16"
+                    android:layout_marginEnd="@dimen/space_16"
+                    android:orientation="vertical"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewConstNextForecast"
+                    tools:listitem="@layout/item_weather_week" />
 
-                    <TextView
-                        android:id="@+id/textViewConstNextForecast"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="@dimen/space_16"
-                        android:text="@string/next_forecast"
-                        android:textColor="@color/white"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/space_16"
-                        android:layout_marginEnd="@dimen/space_18"
-                        android:src="@drawable/calendar_icon"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recyclerViewWeatherWeek"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="@dimen/space_16"
-                        android:layout_marginEnd="@dimen/space_16"
-                        android:orientation="vertical"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        app:layout_constraintTop_toBottomOf="@+id/textViewConstNextForecast"
-                        tools:listitem="@layout/item_weather_week" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </androidx.cardview.widget.CardView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

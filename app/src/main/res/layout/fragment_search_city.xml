@@ -8,22 +8,21 @@
     android:background="@drawable/application_background"
     android:clickable="true"
     android:focusable="true"
-
     tools:context=".pages.search.presentation.SearchCityFragment">
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_search"
+        android:id="@+id/textInputLayoutSearch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/space_18"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="@dimen/space_24"
         android:layout_marginEnd="@dimen/space_18"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/et_search"
+            android:id="@+id/editTextSearch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/et_hint_city"
@@ -35,11 +34,11 @@
         android:id="@+id/btnSearch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="18dp"
+        android:layout_margin="@dimen/space_18"
         android:background="@color/card_background"
         android:text="@string/search"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/til_search" />
+        app:layout_constraintTop_toBottomOf="@id/textInputLayoutSearch" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
