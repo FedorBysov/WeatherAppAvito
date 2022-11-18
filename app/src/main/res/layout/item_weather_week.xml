@@ -22,7 +22,7 @@
         app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_goneMarginBottom="12dp"
+        app:layout_goneMarginBottom="@dimen/space_12"
         tools:text="Monday" />
 
 
