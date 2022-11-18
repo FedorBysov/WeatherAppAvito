@@ -10,6 +10,10 @@ data class WeatherInfoNowDto(
     @Expose
     val address: String? = null,
 
+    @SerializedName("resolvedAddress")
+    @Expose
+    val resolvedAddress: String? = null,
+
     @SerializedName("currentConditions")
     @Expose
     val currentConditions: WeatherNowDto

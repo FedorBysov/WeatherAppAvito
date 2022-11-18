@@ -70,7 +70,7 @@ class WeatherDetailedFragment : Fragment() {
         viewModel.weatherNowVM.observe(viewLifecycleOwner) {
             binding.textViewMaxTemp.text = String.format("Max: %S°", it.maxTemp?.toInt().toString())
             binding.textViewMinTemp.text = String.format("Min: %S°", it.minTemp?.toInt().toString())
-            binding.textViewLocationNow.text = it.address
+            binding.textViewLocationNow.text = it.resolvedAddress
             binding.imageViewWeatherNow.setImageResource(it.icon)
             binding.textViewTempNow.text = String.format("%S°", it.temp?.toInt().toString())
             binding.textViewDataToday.text = it.datetime
