@@ -1,10 +1,12 @@
 package com.example.weatherappavito.data
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.Transformations
 import com.example.weatherappavito.data.api.ApiFactory
+import com.example.weatherappavito.data.api.model.weatherWeekResponse.WeatherSevenDaysDto
 import com.example.weatherappavito.data.db.DataBase
 import com.example.weatherappavito.data.mapper.WeatherMapper
 import com.example.weatherappavito.domain.WeatherRepository
@@ -12,6 +14,7 @@ import com.example.weatherappavito.domain.entity.WeatherHour
 import com.example.weatherappavito.domain.entity.WeatherNow
 import com.example.weatherappavito.domain.entity.WeatherSevenDays
 import kotlinx.coroutines.delay
+import retrofit2.Response
 
 class WeatherRepositoryIMPL(application: Application) : WeatherRepository {
 
@@ -46,36 +49,37 @@ class WeatherRepositoryIMPL(application: Application) : WeatherRepository {
         }
 
     override suspend fun loadDataUseCase(location: String) {
-        while (true) {
-            try {
-                val weatherSevenDto = apiService.getWeatherInfoOneWeek(location)
-                val weatherHourDto = apiService.getWeatherInfoHour(location)
-                val weatherNowDto = apiService.getWeatherInfoNow(location)
 
-                weatherDAO.deleteWeatherNowTable()
-                weatherDAO.deleteWeatherDaysWeekTable()
-                weatherDAO.deleteWeatherHourTable()
+        val weatherSevenDto = apiService.getWeatherInfoOneWeek(location)
+        val weatherHourDto = apiService.getWeatherInfoHour(location)
+        val weatherNowDto = apiService.getWeatherInfoNow(location)
 
-
-                val dbModelSevenList =
-                    weatherSevenDto.days?.map { mapper.mapWeatherInfoSevenDaysDtoToDb(it) }
+        if (weatherHourDto.isSuccessful and weatherSevenDto.isSuccessful and weatherNowDto.isSuccessful ) {
+            weatherDAO.deleteWeatherNowTable()
+            weatherDAO.deleteWeatherDaysWeekTable()
+            weatherDAO.deleteWeatherHourTable()
 
 
-                val dbModelHourList =
-                    weatherHourDto.days?.get(0)?.hours?.map { mapper.mapWeatherInfoHourDtoToDb(it) }
+            val dbModelSevenList =
+                weatherSevenDto.body()?.days?.map { mapper.mapWeatherInfoSevenDaysDtoToDb(it) }
+            weatherDAO.insertWeatherSevenDayTable(dbModelSevenList)
 
 
-                val dbModelNow =
-                    mapper.mapWeatherInfoNowDtoToDb(weatherNowDto, weatherNowDto.currentConditions,
-                        weatherSevenDto.days?.get(0)?.tempmin ?: 0.0,
-                            weatherSevenDto.days?.get(0)?.tempmax ?: 0.0)
+            val dbModelHourList =
+                weatherHourDto.body()?.days?.get(0)?.hours?.map {
+                    mapper.mapWeatherInfoHourDtoToDb(
+                        it
+                    )
+                }
+            weatherDAO.insertWeatherHourTable(dbModelHourList)
 
-                weatherDAO.insertWeatherHourTable(dbModelHourList)
-                weatherDAO.insertWeatherNowTable(dbModelNow)
-                weatherDAO.insertWeatherSevenDayTable(dbModelSevenList)
-            } catch (e: Exception) {
-            }
-            delay(100000000)
+            val dbModelNow =
+                mapper.mapWeatherInfoNowDtoToDb(
+                    weatherNowDto.body()!!, weatherNowDto.body()!!.currentConditions,
+                    weatherSevenDto.body()?.days?.get(0)?.tempmin ?: 0.0,
+                    weatherSevenDto.body()?.days?.get(0)?.tempmax ?: 0.0
+                )
+            weatherDAO.insertWeatherNowTable(dbModelNow)
         }
     }
 }

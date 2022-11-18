@@ -36,7 +36,7 @@
         app:layout_constraintEnd_toStartOf="@+id/tvTemperatureMinWeekItem"
         app:layout_constraintStart_toEndOf="@+id/tvTemperatureWeekDayItem"
         app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/thunder" />
+        tools:src="@drawable/ic_thunder" />
 
     <TextView
         android:id="@+id/tvTemperatureMaxWeekItem"

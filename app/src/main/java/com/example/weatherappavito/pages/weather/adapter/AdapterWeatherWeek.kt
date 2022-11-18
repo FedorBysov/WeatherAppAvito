@@ -19,7 +19,7 @@ class AdapterWeatherWeek : ListAdapter<WeatherSevenDays, WeekViewHolder>(WeekDif
             with(item) {
                 tvTemperatureWeekDayItem.text = datetime
                 tvTemperatureMaxWeekItem.text = String.format("%S°",tempmax?.toInt().toString())
-                tvTemperatureMinWeekItem.text = String.format("%S°",tempmax?.toInt().toString())
+                tvTemperatureMinWeekItem.text = String.format("%S°",tempmin?.toInt().toString())
                 ivTemperatureWeekItem.setImageResource(icon)
             }
         }

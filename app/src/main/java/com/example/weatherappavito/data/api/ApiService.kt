@@ -4,6 +4,7 @@ import com.example.weatherappavito.data.api.model.weatherHourResponse.WeatherDay
 import com.example.weatherappavito.data.api.model.weatherHourResponse.WeatherInfoHourDto
 import com.example.weatherappavito.data.api.model.weatherNowResponse.WeatherInfoNowDto
 import com.example.weatherappavito.data.api.model.weatherWeekResponse.WeatherInfoSevenDaysDto
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -18,7 +19,7 @@ interface ApiService {
         @Query(QUERY_PARAM_INCLUDE) include: String = INCLUDE_WEEK,
         @Query(QUERY_PARAM_API_KEY) key: String = API_KEY,
         @Query(QUERY_PARAM_CONTENT_TYPE) contentType: String = CONTENT_TYPE
-    ): WeatherInfoSevenDaysDto
+    ): Response<WeatherInfoSevenDaysDto>
 
     //Проноз погоды по часам
     @GET("{location}/today?")
@@ -28,7 +29,7 @@ interface ApiService {
         @Query(QUERY_PARAM_INCLUDE) include: String = INCLUDE_DAY,
         @Query(QUERY_PARAM_API_KEY) key: String = API_KEY,
         @Query(QUERY_PARAM_CONTENT_TYPE) contentType: String = CONTENT_TYPE
-    ): WeatherInfoNowDto
+    ): Response<WeatherInfoNowDto>
 
     //Прогноз погоды сейчас
     @GET("{location}/today?")
@@ -38,7 +39,7 @@ interface ApiService {
         @Query(QUERY_PARAM_INCLUDE) include: String = INCLUDE_HOUR,
         @Query(QUERY_PARAM_API_KEY) key: String = API_KEY,
         @Query(QUERY_PARAM_CONTENT_TYPE) contentType: String = CONTENT_TYPE
-    ): WeatherInfoHourDto
+    ): Response<WeatherInfoHourDto>
 
 
     companion object {

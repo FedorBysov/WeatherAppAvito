@@ -5,6 +5,8 @@ import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.location.Location
 import android.location.LocationRequest
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.os.Bundle
 import android.os.Looper
 import android.util.Log
@@ -56,24 +58,13 @@ class WeatherDetailedFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel = ViewModelProvider(this)[WeatherDetailedViewModel::class.java]
-        val adapterHour = AdapterWeatherHour()
-        val adapterWeek = AdapterWeatherWeek()
 
-        lifecycleScope.launch {
-            location(requireContext())
-        }
+        initAdapter()
 
-
-        binding.recyclerViewWeatherHour.adapter = adapterHour
-        binding.recyclerViewWeatherWeek.adapter = adapterWeek
-        binding.recyclerViewWeatherHour.itemAnimator = null
-        binding.recyclerViewWeatherWeek.itemAnimator = null
-
-        viewModel.weatherHourVM.observe(viewLifecycleOwner) {
-            adapterHour.submitList(it)
-        }
-        viewModel.weatherWeekVM.observe(viewLifecycleOwner) {
-            adapterWeek.submitList(it)
+        if (isOnline(requireContext())) {
+            lifecycleScope.launch {
+                location(requireContext())
+            }
         }
 
         viewModel.weatherNowVM.observe(viewLifecycleOwner) {
@@ -89,25 +80,44 @@ class WeatherDetailedFragment : Fragment() {
                 String.format("%s Km/h", it.windspeed?.toInt().toString())
         }
 
-
         binding.floatingButtonSearchCity.setOnClickListener {
             showBottomSheetDialog()
         }
 
         binding.floatingButtonLocationDetermination.setOnClickListener {
-            lifecycleScope.launch {
-                location(requireContext())
+            if (isOnline(requireContext())) {
+                lifecycleScope.launch {
+                    location(requireContext())
+                }
             }
         }
 
     }
 
-    fun showBottomSheetDialog() {
+    private fun initAdapter(){
+        val adapterHour = AdapterWeatherHour()
+        val adapterWeek = AdapterWeatherWeek()
+        binding.recyclerViewWeatherHour.adapter = adapterHour
+        binding.recyclerViewWeatherWeek.adapter = adapterWeek
+        binding.recyclerViewWeatherHour.itemAnimator = null
+        binding.recyclerViewWeatherWeek.itemAnimator = null
+        viewModel.weatherHourVM.observe(viewLifecycleOwner) {
+            adapterHour.submitList(it)
+        }
+        viewModel.weatherWeekVM.observe(viewLifecycleOwner) {
+            adapterWeek.submitList(it)
+        }
+    }
+
+    private fun showBottomSheetDialog() {
         val dialog = BottomSheetDialog(requireContext())
         dialog.setContentView(R.layout.item_search_city)
         dialog.btnSearch.setOnClickListener {
-            viewModel.loadData(dialog.editTextSearch.text.toString())
-            dialog.dismiss()
+            if (isOnline(requireContext())) {
+                viewModel.loadData(dialog.editTextSearch.text.toString())
+                dialog.dismiss()
+            }
+
         }
         dialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
         dialog.show()
@@ -235,6 +245,28 @@ class WeatherDetailedFragment : Fragment() {
             ),
             REQUEST_CODE
         )
+    }
+
+    fun isOnline(context: Context): Boolean {
+        val connectivityManager =
+            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        if (connectivityManager != null) {
+            val capabilities =
+                connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+            if (capabilities != null) {
+                if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
+                    Log.i("Internet", "NetworkCapabilities.TRANSPORT_CELLULAR")
+                    return true
+                } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
+                    Log.i("Internet", "NetworkCapabilities.TRANSPORT_WIFI")
+                    return true
+                } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) {
+                    Log.i("Internet", "NetworkCapabilities.TRANSPORT_ETHERNET")
+                    return true
+                }
+            }
+        }
+        return false
     }
 
     companion object {
