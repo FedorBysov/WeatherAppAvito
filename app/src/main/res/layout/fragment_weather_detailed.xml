@@ -10,7 +10,7 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/application_background"
+        android:background="@drawable/bg_application"
         android:padding="@dimen/space_24">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -26,7 +26,7 @@
                 android:clickable="true"
                 android:contentDescription="@string/CD_search_city"
                 android:focusable="true"
-                android:src="@drawable/search_icon"
+                android:src="@drawable/ic_search"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/floatingButtonLocationDetermination" />
 
@@ -38,7 +38,7 @@
                 android:clickable="true"
                 android:contentDescription="@string/CD_button_definition_geo_position"
                 android:focusable="true"
-                android:src="@drawable/map_icon"
+                android:src="@drawable/ic_map"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -47,7 +47,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/space_6"
-                android:src="@drawable/map_icon"
+                android:src="@drawable/ic_map"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -69,11 +69,11 @@
                 android:id="@+id/imageViewWeatherNow"
                 android:layout_width="150dp"
                 android:layout_height="130dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="@dimen/space_20"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textViewLocationNow"
-                tools:src="@drawable/hail" />
+                tools:src="@drawable/ic_hail" />
 
 
             <TextView
@@ -127,7 +127,7 @@
                 android:id="@+id/cardViewInfoNow"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/card_background"
+                android:background="@drawable/bg_card"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/textViewMaxTemp">
@@ -148,7 +148,7 @@
                         android:layout_height="wrap_content"
                         android:paddingTop="@dimen/space_16"
                         android:paddingBottom="@dimen/space_16"
-                        android:src="@drawable/precip_icon" />
+                        android:src="@drawable/ic_precip" />
 
 
                     <TextView
@@ -179,7 +179,7 @@
                         android:layout_height="wrap_content"
                         android:paddingTop="@dimen/space_16"
                         android:paddingBottom="@dimen/space_16"
-                        android:src="@drawable/humidity_icon" />
+                        android:src="@drawable/ic_humidity" />
 
                     <TextView
                         android:id="@+id/textViewHumidity"
@@ -209,14 +209,14 @@
                         android:layout_height="wrap_content"
                         android:paddingTop="@dimen/space_16"
                         android:paddingBottom="@dimen/space_16"
-                        android:src="@drawable/speed_wind_icon" />
+                        android:src="@drawable/ic_speed_wind_icon" />
 
                     <TextView
                         android:id="@+id/textViewSpeedWind"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingTop="15dp"
-                        android:paddingBottom="15dp"
+                        android:paddingTop="@dimen/space_16"
+                        android:paddingBottom="@dimen/space_16"
                         android:textColor="@color/white"
                         android:textSize="14sp"
                         android:textStyle="bold"
@@ -230,7 +230,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/space_20"
-                android:background="@drawable/card_background"
+                android:background="@drawable/bg_card"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/cardViewInfoNow">
@@ -280,7 +280,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/space_20"
-                android:background="@drawable/card_background"
+                android:background="@drawable/bg_card"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -303,7 +303,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_16"
                     android:layout_marginEnd="@dimen/space_18"
-                    android:src="@drawable/calendar_icon"
+                    android:src="@drawable/ic_calendar"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 

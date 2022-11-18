@@ -22,7 +22,7 @@
         app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_goneMarginBottom="12dp"
+        app:layout_goneMarginBottom="@dimen/space_12"
         tools:text="Monday" />
 
 
@@ -36,7 +36,7 @@
         app:layout_constraintEnd_toStartOf="@+id/tvTemperatureMinWeekItem"
         app:layout_constraintStart_toEndOf="@+id/tvTemperatureWeekDayItem"
         app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/thunder" />
+        tools:src="@drawable/ic_thunder" />
 
     <TextView
         android:id="@+id/tvTemperatureMaxWeekItem"
