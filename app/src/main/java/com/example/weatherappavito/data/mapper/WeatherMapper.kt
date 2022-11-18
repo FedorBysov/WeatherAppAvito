@@ -49,6 +49,7 @@ class WeatherMapper {
             sunriseEpoch = nowDto.sunriseEpoch,
             sunset = nowDto.sunset,
             sunsetEpoch = nowDto.sunsetEpoch,
+            resolvedAddress = infoNowDto.resolvedAddress,
 
             address = infoNowDto.address,
 
@@ -95,7 +96,9 @@ class WeatherMapper {
 
     fun mapWeatherNowDbToEntity(nowDb: WeatherNowDb): WeatherNow {
         return WeatherNow(
-            datetime = convertDayToSet(nowDb.datetimeEpoch?.toLong()) +", "+convertMonthToSet(nowDb.datetimeEpoch?.toLong()),
+            datetime = convertDayToSet(nowDb.datetimeEpoch?.toLong()) + ", " + convertMonthToSet(
+                nowDb.datetimeEpoch?.toLong()
+            ),
             datetimeEpoch = nowDb.datetimeEpoch,
             temp = nowDb.temp,
             feelslike = nowDb.feelslike,
@@ -124,8 +127,8 @@ class WeatherMapper {
             address = nowDb.address,
 
             maxTemp = nowDb.maxTemp,
-            minTemp = nowDb.minTemp
-
+            minTemp = nowDb.minTemp,
+            resolvedAddress = nowDb.resolvedAddress
         )
     }
 
